@@ -81,7 +81,7 @@ jobs:
       - name: Extract version from package.json
         id: extract-version
         run: >
-          echo "::set-env name=tag-name::$(sed 's/.*"version": "\(.*\)".*/\1/;t;d' ./package.json)"
+          echo "::set-output name=tag-name::$(sed 's/.*"version": "\(.*\)".*/\1/;t;d' ./package.json)"
       # Configure git
       - name: Set git name
         run: git config --global user.name "Ashkan Pourghasem"
