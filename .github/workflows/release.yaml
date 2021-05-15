@@ -2,7 +2,7 @@ name: Release
 on:
   push:
     branches:
-      - release-action
+      - master
 jobs:
   dependencies:
     name: Dependencies
