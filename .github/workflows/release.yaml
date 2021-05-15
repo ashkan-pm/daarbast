@@ -77,6 +77,10 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+      # Extract version from package.json
+      - name: Extract version from package.json
+        run: >
+          ::set-output name=VERSION::sed 's/.*"version": "\(.*\)".*/\1/;t;d' ./package.json
       # Configure git
       - name: Set git name
         run: git config --global user.name "Ashkan Pourghasem"
@@ -84,13 +88,15 @@ jobs:
         run: git config --global user.email "ashkan.pourghasem@googlemail.com"
       # Create tag
       - name: Create tag
-        run: git tag -a v0.0.0 -m "v0.0.0" && git push origin v0.0.0
+        run: git tag -a v${{ steps.maybe-greet.output.VERSION }} -m "v${{ steps.maybe-greet.output.VERSION }}" && git push origin v0.0.0
+      - name: Push tag
+        run: git push origin v${{ steps.maybe-greet.output.VERSION }}
       # Create GitHub release
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
         with:
           # body_path: ./CHANGELOG-v${{ github.event.inputs.version }}.md
-          tag_name: v0.0.0
+          tag_name: v${{ steps.maybe-greet.output.VERSION }}
           draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
