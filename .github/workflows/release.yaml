@@ -88,15 +88,15 @@ jobs:
         run: git config --global user.email "ashkan.pourghasem@googlemail.com"
       # Create tag
       - name: Create tag
-        run: git tag -a v$TAG_NAME -m "v$TAG_NAME" && git push origin v$TAG_NAME
+        run: git tag -a v{$TAG_NAME} -m "v{$TAG_NAME}" && git push origin v{$TAG_NAME}
       - name: Push tag
-        run: git push origin v$TAG_NAME
+        run: git push origin v{$TAG_NAME}
       # Create GitHub release
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
         with:
-          # body_path: ./CHANGELOG-v$TAG_NAME.md
-          tag_name: v$TAG_NAME
+          # body_path: ./CHANGELOG-v{$TAG_NAME}.md
+          tag_name: v{$TAG_NAME}
           draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
