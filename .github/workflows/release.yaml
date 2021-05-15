@@ -92,11 +92,15 @@ jobs:
         run: git tag -a v${{ steps.version.outputs.tag }} -m "v${{ steps.version.outputs.tag }}"
       - name: Push tag
         run: git push origin v${{ steps.version.outputs.tag }}
+      # Generate release changelog
+      - name: Get changes specific to the tag from CHANGELOG.md
+        run: >
+          sed -n -e "/## v${{ steps.version.outputs.tag }}/,/## v/ p" CHANGELOG.md | sed '1d; 2d; $d;' | sed '$d' > CHANGELOG-v${{ steps.version.outputs.tag }}.md
       # Create GitHub release
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
         with:
-          # body_path: ./CHANGELOG-v${{ steps.version.outputs.tag }}.md
+          body_path: ./CHANGELOG-v${{ steps.version.outputs.tag }}.md
           tag_name: v${{ steps.version.outputs.tag }}
           draft: true
         env:
