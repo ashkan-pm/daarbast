@@ -80,7 +80,7 @@ jobs:
       # Extract version from package.json
       - name: Extract version from package.json
         run: >
-          ::set-output name=TAG_NAME::$(sed 's/.*"version": "\(.*\)".*/\1/;t;d' ./package.json)
+          export TAG_NAME=$(sed 's/.*"version": "\(.*\)".*/\1/;t;d' ./package.json)
       # Configure git
       - name: Set git name
         run: git config --global user.name "Ashkan Pourghasem"
@@ -88,15 +88,15 @@ jobs:
         run: git config --global user.email "ashkan.pourghasem@googlemail.com"
       # Create tag
       - name: Create tag
-        run: git tag -a v${{ steps.maybe-greet.output.TAG_NAME }} -m "v${{ steps.maybe-greet.output.TAG_NAME }}" && git push origin v0.0.0
+        run: git tag -a v$TAG_NAME -m "v$TAG_NAME" && git push origin v$TAG_NAME
       - name: Push tag
-        run: git push origin v${{ steps.maybe-greet.output.TAG_NAME }}
+        run: git push origin v$TAG_NAME
       # Create GitHub release
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
         with:
-          # body_path: ./CHANGELOG-v${{ steps.maybe-greet.output.TAG_NAME }}.md
-          tag_name: v${{ steps.maybe-greet.output.TAG_NAME }}
+          # body_path: ./CHANGELOG-v$TAG_NAME.md
+          tag_name: v$TAG_NAME
           draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
