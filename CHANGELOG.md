@@ -1,3 +1,7 @@
+## v0.0.2
+
+- Fix problem in `publish` workflow
+
 ## v0.0.1
 
 - Configure TypeScript build
