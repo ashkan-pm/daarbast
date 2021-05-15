@@ -79,8 +79,9 @@ jobs:
         uses: actions/checkout@v2
       # Extract version from package.json
       - name: Extract version from package.json
+        id: extract-version
         run: >
-          export TAG_NAME=$(sed 's/.*"version": "\(.*\)".*/\1/;t;d' ./package.json)
+          echo "::set-env name=tag-name::$(sed 's/.*"version": "\(.*\)".*/\1/;t;d' ./package.json)"
       # Configure git
       - name: Set git name
         run: git config --global user.name "Ashkan Pourghasem"
@@ -88,15 +89,15 @@ jobs:
         run: git config --global user.email "ashkan.pourghasem@googlemail.com"
       # Create tag
       - name: Create tag
-        run: git tag -a v{$TAG_NAME} -m "v{$TAG_NAME}" && git push origin v{$TAG_NAME}
+        run: git tag -a v${{ steps.extract-version.output.tag-name }} -m "v${{ steps.extract-version.output.tag-name }}"
       - name: Push tag
-        run: git push origin v{$TAG_NAME}
+        run: git push origin v${{ steps.extract-version.output.tag-name }}
       # Create GitHub release
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
         with:
-          # body_path: ./CHANGELOG-v{$TAG_NAME}.md
-          tag_name: v{$TAG_NAME}
+          # body_path: ./CHANGELOG-v${{ steps.extract-version.output.tag-name }}.md
+          tag_name: v${{ steps.extract-version.output.tag-name }}
           draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
