@@ -1,7 +1,10 @@
-## v0.0.0
+## v0.0.1
 
-- Initialize project
 - Configure TypeScript build
 - Configure lint and formatting
 - Configure testing
 - Implement CI using GitHub Actions
+
+## v0.0.0
+
+- Initialize project
