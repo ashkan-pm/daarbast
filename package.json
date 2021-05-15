@@ -1,6 +1,6 @@
 {
   "name": "daarbast",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Daarbast is a Kubernetes ready monorepo scaffolding tool",
   "author": {
     "name": "Ashkan Pourghasem",
