@@ -84,7 +84,7 @@ jobs:
         run: git config --global user.email "ashkan.pourghasem@googlemail.com"
       # Create tag
       - name: Create tag
-        run: git tag -a v0.0.0 && git push origin v0.0.0
+        run: git tag -a v0.0.0 -m "v0.0.0" && git push origin v0.0.0
       # Create GitHub release
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
