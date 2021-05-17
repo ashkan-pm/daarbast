@@ -1,3 +1,7 @@
+## v0.0.3
+
+- This is just for testing publish automation
+
 ## v0.0.2
 
 - Fix problem in `publish` workflow
