@@ -11,7 +11,7 @@ describe('Main', () => {
 
   it('Should console log constant', () => {
     printTest();
-    expect(console.log).toHaveBeenCalledTimes(1);
+    expect(console.log).toHaveBeenCalledTimes(2);
     expect(console.log).toHaveBeenCalledWith(TEST);
   });
 });
